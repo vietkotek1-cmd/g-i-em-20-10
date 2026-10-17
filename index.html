@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Em Yêu 20/10 ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Hiệu ứng trái tim nền */
+        .heart-bg {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 20px;
+            animation: floatUp 5s linear infinite;
+            bottom: -10vh;
+            user-select: none;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Khung thiệp */
+        .card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.92);
+            padding: 35px 25px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.25);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            animation: fadeIn 1.5s ease-in-out;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Khung chứa ảnh cá nhân */
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ff4757;
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
+        }
+
+        .card h1 {
+            color: #d63384;
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: #4a4a4a;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+            border: none;
+            padding: 12px 26px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 5px 18px rgba(255, 71, 87, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #ff3344, #ff5266);
+            box-shadow: 0 8px 22px rgba(255, 71, 87, 0.5);
+        }
+
+        /* Khung thông điệp ẩn */
+        #hidden-message {
+            display: none;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed #ffb6c1;
+            color: #d63384;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.6;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* Nút bật/tắt nhạc */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nút điều khiển nhạc -->
+    <button class="music-control" id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+    <!-- Nhạc nền piano -->
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Thiệp chính -->
+    <div class="card">
+        <!-- Ảnh nhúng trực tiếp bằng Base64 (không lo lỗi đường dẫn) -->
+        <div class="avatar-container">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAAnAC8BAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Ảnh xinh xắn" class="avatar-img" id="embeddedImg">
+        </div>
+
+        <h1>Chúc Mừng Ngày 20/10 Em Yêu! ✨</h1>
+        <p>Cảm ơn em vì đã xuất hiện và làm cho thế giới của anh trở nên rạng rỡ và ấm áp hơn rất nhiều. Chúc em luôn xinh đẹp, vui vẻ và giữ mãi nụ cười tươi này nhé!</p>
+        
+        <button class="btn" id="mainBtn" onclick="showMessage()">Anh có điều này muốn nói với em... 💌</button>
+        
+        <div id="hidden-message">
+            <p id="typed-text"></p>
+        </div>
+    </div>
+
+    <script>
+        // Tự động gán lại ảnh chính xác từ file anh.jpg trong thư mục của bạn bằng Javascript
+        window.addEventListener('DOMContentLoaded', () => {
+            const img = document.getElementById('embeddedImg');
+            img.src = 'anh.jpg';
+            img.onerror = function() {
+                // Nếu vẫn lỗi, tự động chuyển sang file đuôi .jfif của bạn
+                this.src = 'anh.jpg.jfif';
+            };
+        });
+
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
+
+        const confessionText = "Ngày 20/10 này và tất cả những ngày về sau, anh chỉ mong được ở bên cạnh chăm sóc, mang lại hạnh phúc cho em. Yêu em nhiều lắm! 💖🌸";
+
+        // Tự động phát nhạc khi chạm vào trang
+        document.addEventListener('click', function startMusicOnFirstClick() {
+            if (!isPlaying) {
+                playMusic();
+            }
+            document.removeEventListener('click', startMusicOnFirstClick);
+        }, { once: true });
+
+        function playMusic() {
+            music.play().then(() => {
+                isPlaying = true;
+                musicBtn.innerHTML = '🔊';
+            }).catch(error => {
+                console.log("Autoplay blocked:", error);
+            });
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                isPlaying = false;
+                musicBtn.innerHTML = '📁';
+            } else {
+                playMusic();
+            }
+        }
+
+        // Hiển thị lời nhắn tỏ tình với hiệu ứng gõ chữ
+        function showMessage() {
+            const msgBox = document.getElementById('hidden-message');
+            const btn = document.getElementById('mainBtn');
+            msgBox.style.display = 'block';
+            btn.style.display = 'none';
+            
+            createHeartBurst();
+            if (!isPlaying) playMusic();
+
+            let index = 0;
+            const textElem = document.getElementById('typed-text');
+            textElem.innerHTML = '';
+            
+            function typeWriter() {
+                if (index < confessionText.length) {
+                    textElem.innerHTML += confessionText.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+            typeWriter();
+        }
+
+        // Tạo trái tim bay lên
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+
+        function createHeartBurst() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createHeart, i * 40);
+            }
+        }
+    </script>
+</body>
+</html>
